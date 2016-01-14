@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>ImageSharePHP</Name>
+    <ProjectGuid>9a59e03d-8c57-42bb-ae36-14c615a49c5f</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ImageSharePHP</RootNamespace>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <AssemblyName>ImageSharePHP</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="header.php" />
+    <Compile Include="database.php" />
+    <Compile Include="showImage.php" />
+    <Compile Include="upload.php" />
+    <Compile Include="uploadpage.php" />
+    <Compile Include="index.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="contentLoader.js" />
+    <Content Include="mainStyle.css" />
+  </ItemGroup>
+</Project>
