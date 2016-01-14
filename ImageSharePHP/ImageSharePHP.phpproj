@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="header.php" />
     <Compile Include="database.php" />
+    <Compile Include="login.php" />
     <Compile Include="showImage.php" />
     <Compile Include="upload.php" />
     <Compile Include="uploadpage.php" />

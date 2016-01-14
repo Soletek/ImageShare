@@ -9,6 +9,19 @@ echo '<img src="' . $img_path . '" alt="failed to load the image" />';
 
 echo '</div>';
 echo '</div>';
+
+
+$uploadStatus = $_GET["uploadstatus"];
+if ($uploadStatus == 1){
+    echo '<div id="message">';
+    echo 'Upload succesful!';
+    echo '</div>';
+}
+
 ?>
 
-<div id="scroll"></div>
+<div id="scroll">
+<?php
+
+?>
+</div>

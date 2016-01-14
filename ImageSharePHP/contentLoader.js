@@ -9,20 +9,36 @@ function contentMain() {
     $("#contents").load("database.php");
 }
 
-function contentImage(imagefile) {
+function contentImage(imagefile, uploaded) {
+    
+
     var image = new Image();
     image.src = "/img/" + imagefile;
     var imageHeight = image.height;
 
+    console.log(imagefile + " " + imageHeight);
+
+    $("#contents").load("showImage.php?img=" + imagefile + "&height=" + imageHeight + "&uploadstatus" + uploaded);
+
     document.getElementById("contents").style.minHeight = (imageHeight + 80).toString() + "px";
-    $("#contents").load("showImage.php?img=" + imagefile + "&height=" + imageHeight);
 }
 
 function loadHeader() {
     $("#header").load("header.php");
 }
 
-// Drag and Drop for the uploaded image
+function login(googleUser) {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+
+    $.ajax({
+        url: '/login.php',
+    }).done(function (data) {
+        console.log(data);
+    });
+
+}
+
+// Drag and Drop 
 
 function allowDrop(event) {
     event.preventDefault();
@@ -38,43 +54,44 @@ function drop(event) {
     var files = event.dataTransfer.files;
 
     if (files.length == 1 && files[0]){
-        var file = files[0];
-
-        document.getElementById("debug").innerHTML = file.name;
-
-        if (allowedFormat(file)) {
-
-            var reader = new FileReader();
-
-            document.getElementById("debug").innerHTML = file.name + " OK!";
-
-            reader.onload = function (e) {
-                var dataBlob = reader.result;
-
-                document.getElementById("debug").innerHTML = file.name + " UPLOADED!";
-                
-                var fd = new FormData();
-                //fd.append('fname', 'test.bmp');
-                fd.append('data', dataBlob);
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/upload.php',
-                    data: fd,
-                    processData: false,
-                    contentType: false
-                }).done(function (data) {
-                    console.log(data);
-                });
-            }
-
-            reader.readAsDataURL(file);
-        } else {
-            // Unsupported file format
-        }  
+        uploadImage(files[0]);
     } else {
         // Too may files
     }  
+}
+
+// Upload
+
+function uploadImage(file) {
+    disableUploadUI();
+
+    if (allowedFormat(file)) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var dataBlob = reader.result;
+            var fd = new FormData();
+            fd.append('data', dataBlob);
+
+            $.ajax({
+                type: 'POST',
+                url: '/upload.php',
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function (data) {
+                //enableUploadUI();
+                console.log(data);
+                window.location.href = 'http://localhost:63834/?img=' + data;
+                //contentImage(data, 1)  
+            });
+        }
+
+        reader.readAsDataURL(file);
+    } else {
+        // Unsupported file format
+    }
+
 }
 
 function allowedFormat(file) {

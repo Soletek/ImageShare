@@ -16,12 +16,13 @@ if (substr($datatype, 0, 5) != "image"){
     die ("Uploaded file is not an image.");
 }
 
-$filename = getImageHash() . "." . $extension;
+$imagecode = getImageHash();
+$filename = $imagecode . "." . $extension;
 
 $fp = fopen("img/" . $filename, 'wb');
 
 if ( !$fp ) {
-    die ("fopen failed");
+    die ("Couldn't save the image.");
 }
 
 fwrite($fp, base64_decode($data));
@@ -32,16 +33,20 @@ fclose($fp);
 $conn = connectToMYSQL();
 
 $uploaderIP = getClientIPAddress();
-$sql = "INSERT INTO UploadedImages (filename, upload_ip, upload_profile)
-        VALUES ('$filename', '$uploaderIP', '')";
+$sql = "INSERT INTO UploadedImages (imagecode, filename, upload_ip, upload_profile)
+        VALUES ('$imagecode', '$filename', '$uploaderIP', '')";
 
-makeQuery($conn, $sql);
+if ($conn->query($sql) === TRUE) {
+    echo $imagecode;
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error . "\n";
+}
 
 $conn->close();
 
 function getImageHash(){
-    $rand = rand(10000, 99999);
-    return "aBcD0" . $rand;
+    $rand = rand(100000, 999999);
+    return "aBcD" . $rand;
 }
 
 function getClientIPAddress() {
@@ -66,4 +71,3 @@ function checkIP($ip) {
 
 
 ?>
-

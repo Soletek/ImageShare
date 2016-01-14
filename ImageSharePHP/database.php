@@ -28,9 +28,10 @@ function connectToMYSQL(){
 function initializeTables($conn){
     $sql = "CREATE TABLE UploadedImages (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            imagename VARCHAR(50),
-            filename VARCHAR(20) NOT NULL,
-            upload_ip VARCHAR(30) NOT NULL,
+            imagecode VARCHAR(20) NOT NULL,
+            filename VARCHAR(25) NOT NULL,
+            description VARCHAR(50),
+            upload_ip VARCHAR(20) NOT NULL,
             upload_profile VARCHAR(50),
             upload_date DATETIME DEFAULT CURRENT_TIMESTAMP,
             gallery_id INT(6)
@@ -39,14 +40,11 @@ function initializeTables($conn){
     if ($conn->query($sql) === TRUE) {
         echo "New table created successfully\n";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error . "\n";
+        throw new ErrorException ("Query failed: " . $sql . "\n\n" . $conn->error);
     }
 
     $sql = "CREATE TABLE Profiles (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            imagename VARCHAR(50),
-            filename VARCHAR(20) NOT NULL,
-            upload_ip VARCHAR(30) NOT NULL,
             upload_profile VARCHAR(50),
             reg_date DATETIME DEFAULT CURRENT_TIMESTAMP,
             gallery_id VARCHAR(10)
@@ -55,16 +53,26 @@ function initializeTables($conn){
     if ($conn->query($sql) === TRUE) {
         echo "New table created successfully\n";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error . "\n";
+        throw new ErrorException ("Query failed: " . $sql . "\n\n" . $conn->error);
     }
 }
 
-function makeQuery($conn, $sql){
-    if ($conn->query($sql) === TRUE) {
-        echo "Query successful\n";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error . "\n";
+function getImagePathFromDatabase($img) {
+    $conn = connectToMYSQL();
+    
+    $sql = "SELECT imagecode, filename FROM UploadedImages WHERE imagecode = '$img'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+        return $row['filename'];
+    } else if ($result->num_rows > 1) {
+
     }
+
+    $conn->close();
+
+    return "";
 }
 
 ?>

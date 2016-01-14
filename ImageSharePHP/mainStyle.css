@@ -68,23 +68,20 @@ a {
 }
 
 
-#scroll {
-    position: absolute;
 
-	background-color:   #202020;
-	color:				#FFFFFF;
-
-	width:	100%;
-	height: 100px;
-    bottom: 0;
-
-	text-align:	center;
-}
 
 .menu-button {
     float: left;
     padding-left: 15px;
     padding-right: 15px;
+    line-height: 70px;
+    height: 73px;
+}
+
+.menu-button-right {
+    float: right;
+    padding-left: 12px;
+    padding-right: 12px;
     line-height: 70px;
     height: 73px;
 }
@@ -103,20 +100,37 @@ a {
     font-family: Verdana;
 }
 
+#message {
+    color: #999999;
+    text-align: center;
+    font-family: Verdana;
+}
+
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    /*user-select: none;*/
+    user-select: none;
 }
-
 
 #image {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+}
+
+#scroll {
+    position: absolute;
+
+	color:				#FFFFFF;
+
+	width:	100%;
+	height: 100px;
+    bottom: 0;
+
+	text-align:	center;
 }
 
 #dropzone {
