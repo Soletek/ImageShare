@@ -28,11 +28,9 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-
-
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
+//function drag(event) {
+//    event.dataTransfer.setData("text", event.target.id);
+//}
 
 function drop(event) {
     event.preventDefault();
@@ -56,7 +54,7 @@ function drop(event) {
                 document.getElementById("debug").innerHTML = file.name + " UPLOADED!";
                 
                 var fd = new FormData();
-                fd.append('fname', 'test.bmp');
+                //fd.append('fname', 'test.bmp');
                 fd.append('data', dataBlob);
 
                 $.ajax({

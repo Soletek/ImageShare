@@ -5,10 +5,13 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="mainStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://localhost:44790/contentLoader.js"></script>
+    <meta name="google-signin-client_id" content="imageshare-1190.apps.googleusercontent.com">
+    <script src="contentLoader.js"></script>
     <script>
         $(function () { loadHeader(); contentUpload(); });
     </script>
+
+
 </head>
 
 <body>
