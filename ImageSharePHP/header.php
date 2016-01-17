@@ -2,13 +2,13 @@
     <h6>Main</h6>
 </div>
 <div class="menu-button">
-    <button id="hehe" type="button" onclick="contentMain()">database</button>
+    <button id="hehe" type="button" onclick="openDiscussionBox('A')">discussion</button>
 </div>
 <div class="menu-button">
     <button id="hehe" type="button" onclick="contentUpload()">upload</button>
 </div>
 <div class="menu-button">
-    <button id="hehe" type="button" onclick="contentImage('pixel.png')">image</button>
+    <button id="hehe" type="button" onclick="history.back()">back</button>
 </div>
 <div class="menu-button-right" style="padding-top: 12px;">
     <div id="my-signin2"></div>

@@ -1,7 +1,24 @@
 ﻿
+var hostname = "http://localhost:63834/";
 
+/*  Controls the browser back button
+ *  This is necessary, because the page is not refreshed when content is changed.
+ */
+$(window).on("popstate", function (event) {
+    event.preventDefault();
+    var state = event.originalEvent.state;
 
-function contentUpload() {
+    if (state.content == "upload") contentUpload(1);
+    if (state.content == "image") contentImage(state.par1, 0, 1);
+});
+
+function loadHeader() {
+    $("#header").load("header.php");
+}
+
+function contentUpload(reload) {
+    if (!reload) window.history.pushState({ content: "upload" }, "", hostname);
+    contentClear();
     $("#contents").load("uploadpage.php");
 }
 
@@ -9,23 +26,31 @@ function contentMain() {
     $("#contents").load("database.php");
 }
 
-function contentImage(imagefile, uploaded) {
-    
-
-    var image = new Image();
-    image.src = "/img/" + imagefile;
-    var imageHeight = image.height;
-
-    console.log(imagefile + " " + imageHeight);
-
-    $("#contents").load("showImage.php?img=" + imagefile + "&height=" + imageHeight + "&uploadstatus" + uploaded);
-
-    document.getElementById("contents").style.minHeight = (imageHeight + 80).toString() + "px";
+function contentImage(imageID, uploaded, reload) {
+    if (!reload) window.history.pushState({ content: "image", par1: imageID }, "", hostname + '?img=' + imageID);
+    contentClear();
+    $("#contents").load("showImage.php?img=" + imageID + "&uploadstatus=" + uploaded);
 }
 
-function loadHeader() {
-    $("#header").load("header.php");
+function openDiscussionBox(topicID) {
+    contentClear();
+    $("#contents").load("discussion.php");
+    //$("#chat").load("discussion.php");
 }
+
+/* 
+ *  Clears a content area and shows a loading gif until a new content page is loaded.
+ */
+function contentClear() {
+    $("#contents").empty();
+
+    var loaderGif = $('<img>');
+    loaderGif.attr("src", "ajax-loader.gif");
+    loaderGif.attr("class", "middle");
+    loaderGif.appendTo("#contents");
+}
+
+
 
 function login(googleUser) {
     console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
@@ -53,7 +78,8 @@ function drop(event) {
 
     var files = event.dataTransfer.files;
 
-    if (files.length == 1 && files[0]){
+    if (files.length == 1 && files[0]) {
+
         uploadImage(files[0]);
     } else {
         // Too may files
@@ -80,10 +106,9 @@ function uploadImage(file) {
                 processData: false,
                 contentType: false
             }).done(function (data) {
-                //enableUploadUI();
+                enableUploadUI();
                 console.log(data);
-                window.location.href = 'http://localhost:63834/?img=' + data;
-                //contentImage(data, 1)  
+                contentImage(data, 1)  
             });
         }
 

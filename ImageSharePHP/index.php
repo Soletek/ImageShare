@@ -15,12 +15,10 @@
             $img = $_GET["img"];
 
             if ($img){
-                require "database.php";
-                $imgpath = getImagePathFromDatabase($img);
-
-                echo "contentImage('$imgpath', 0);";
+                echo "contentImage('$img', 0, 1);";
             } else {
-                echo "contentUpload();";
+                echo "openDiscussionBox();";
+                //echo "contentUpload(1);";
             }
             ?> 
         });
