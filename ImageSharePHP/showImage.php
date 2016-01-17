@@ -1,27 +1,32 @@
+<script>
+    document.getElementById("img").onload = function () {
+        var image = document.getElementById('img');
+        var imageHeight = image.height;
+
+        document.getElementById("contents").style.minHeight = (imageHeight + 80).toString() + "px";
+        document.getElementById("image-zone").style.minHeight = (imageHeight + 25).toString() + "px";
+    }
+</script>
+
 <?php
-$img_path = "/img/" . $_GET["img"];
-$img_height = $_GET["height"];
+require "database.php";
 
-echo '<div id="image-zone" style="min-height: ' . ($img_height + 25) . 'px;">';
+$imgpath = "/img/" . getImagePathFromDatabase($_GET["img"]);
+echo '<div id="image-zone">';
 echo '<div id="image">';
-
-echo '<img src="' . $img_path . '" alt="failed to load the image" />';
-
+echo '<img id="img" src="' . $imgpath . '" alt="failed to load the image" />';
 echo '</div>';
 echo '</div>';
-
 
 $uploadStatus = $_GET["uploadstatus"];
 if ($uploadStatus == 1){
     echo '<div id="message">';
-    echo 'Upload succesful!';
+    echo 'Upload successful!';
     echo '</div>';
 }
-
 ?>
 
 <div id="scroll">
-<?php
-
-?>
+    <?php
+    ?>
 </div>

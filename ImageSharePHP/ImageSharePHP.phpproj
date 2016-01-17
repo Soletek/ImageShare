@@ -8,6 +8,13 @@
     <RootNamespace>ImageSharePHP</RootNamespace>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
     <AssemblyName>ImageSharePHP</AssemblyName>
+    <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+    <Server>PHPDev</Server>
+    <PublishEvent>None</PublishEvent>
+    <PHPDevAutoPort>True</PHPDevAutoPort>
+    <PHPDevPort>63834</PHPDevPort>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <IISProjectUrl>http://localhost:63834/</IISProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -19,12 +26,14 @@
     <Compile Include="header.php" />
     <Compile Include="database.php" />
     <Compile Include="login.php" />
+    <Compile Include="discussion.php" />
     <Compile Include="showImage.php" />
     <Compile Include="upload.php" />
     <Compile Include="uploadpage.php" />
     <Compile Include="index.php" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ajax-loader.gif" />
     <Content Include="contentLoader.js" />
     <Content Include="mainStyle.css" />
   </ItemGroup>

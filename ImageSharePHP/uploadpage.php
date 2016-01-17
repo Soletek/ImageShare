@@ -9,7 +9,7 @@
 </script>
 
 <div id="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <p class="middle-text noselect"><i>Drag and drop an image here</i></p>
+    <p class="middle noselect"><i>Drag and drop an image here</i></p>
 </div>
 <div id="upload">
     <p class="centered-text">Or browse for one on your computer:</p>
