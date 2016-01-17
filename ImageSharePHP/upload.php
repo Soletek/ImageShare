@@ -1,6 +1,7 @@
 <?php
 
 require 'database.php';
+$mysql = connectToMYSQL();
 
 //
 
@@ -16,7 +17,7 @@ if (substr($datatype, 0, 5) != "image"){
     die ("Uploaded file is not an image.");
 }
 
-$imagecode = getImageHash();
+$imagecode = getImageHash($mysql);
 $filename = $imagecode . "." . $extension;
 
 $fp = fopen("img/" . $filename, 'wb');
@@ -30,21 +31,18 @@ fclose($fp);
 
 // Update the database
 
-$conn = connectToMYSQL();
-
 $uploaderIP = getClientIPAddress();
-$sql = "INSERT INTO UploadedImages (imagecode, filename, upload_ip, upload_profile)
-        VALUES ('$imagecode', '$filename', '$uploaderIP', '')";
+$profile = "";
 
-if ($conn->query($sql) === TRUE) {
-    echo $imagecode;
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error . "\n";
-}
+$stmt = $mysql->prepare("INSERT INTO UploadedImages (imagecode, filename, upload_ip, upload_profile) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $imagecode, $filename, $uploaderIP, $profile);
+$stmt->execute();
 
-$conn->close();
+$stmt->close();
+$mysql->close();
+echo $imagecode;
 
-function getImageHash(){
+function getImageHash($mysql){
     $rand = rand(100000, 999999);
     return "aBcD" . $rand;
 }

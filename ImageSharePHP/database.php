@@ -25,7 +25,7 @@ function connectToMYSQL(){
     
 //}
 
-function initializeTables($conn){
+function initializeTables($mysql){
     $sql = "CREATE TABLE UploadedImages (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             imagecode VARCHAR(20) NOT NULL,
@@ -37,10 +37,10 @@ function initializeTables($conn){
             gallery_id INT(6)
             )";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($mysql->query($sql) === TRUE) {
         echo "New table created successfully\n";
     } else {
-        throw new ErrorException ("Query failed: " . $sql . "\n\n" . $conn->error);
+        throw new ErrorException ("Query failed: " . $sql . "\n\n" . $mysql->error);
     }
 
     $sql = "CREATE TABLE Profiles (
@@ -50,18 +50,21 @@ function initializeTables($conn){
             gallery_id VARCHAR(10)
             )";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($mysql->query($sql) === TRUE) {
         echo "New table created successfully\n";
     } else {
-        throw new ErrorException ("Query failed: " . $sql . "\n\n" . $conn->error);
+        throw new ErrorException ("Query failed: " . $sql . "\n\n" . $mysql->error);
     }
 }
 
 function getImagePathFromDatabase($img) {
-    $conn = connectToMYSQL();
-    
-    $sql = "SELECT imagecode, filename FROM UploadedImages WHERE imagecode = '$img'";
-    $result = $conn->query($sql);
+    $mysql = connectToMYSQL();
+
+    $stmt = $mysql->prepare("SELECT imagecode, filename FROM UploadedImages WHERE imagecode = ?");
+    $stmt->bind_param("s", $img);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
 
     if ($result->num_rows > 0){
         $row = $result->fetch_assoc();
@@ -70,7 +73,7 @@ function getImagePathFromDatabase($img) {
 
     }
 
-    $conn->close();
+    $mysql->close();
 
     return "";
 }
