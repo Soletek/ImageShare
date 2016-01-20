@@ -34,7 +34,7 @@ function contentImage(imageID, uploaded, reload) {
 
 function openDiscussionBox(topicID) {
     contentClear();
-    $("#contents").load("discussion.php");
+    $("#contents").load("discussion.php?id=" + topicID);
     //$("#chat").load("discussion.php");
 }
 
@@ -82,7 +82,7 @@ function drop(event) {
 
         uploadImage(files[0]);
     } else {
-        // Too may files
+        // Too many or no files
     }  
 }
 

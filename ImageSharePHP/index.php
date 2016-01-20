@@ -30,7 +30,6 @@
 <body>
     <div id="header"></div>
     <div id="contents"></div>
-    <h2 id="debug"></h2>
 </body>
 </html>
 

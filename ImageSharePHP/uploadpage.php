@@ -18,4 +18,6 @@
     </form>
 
     <p class="centered-text" style="font-size:10px;">(Maximum file size 2MB)</p>
+    <button type="button" onclick="asd()" style="float: right">save</button>
+    <input type="text" name="name" class="input-field" size="30" maxlength="30" />
 </div>

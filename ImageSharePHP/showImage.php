@@ -10,8 +10,8 @@
 
 <?php
 require "database.php";
-
 $imgpath = "/img/" . getImagePathFromDatabase($_GET["img"]);
+
 echo '<div id="image-zone">';
 echo '<div id="image">';
 echo '<img id="img" src="' . $imgpath . '" alt="failed to load the image" />';

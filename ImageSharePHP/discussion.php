@@ -4,23 +4,6 @@
 //require 'database.php';
 //$mysql = connectToMYSQL();
 
-////
-
-
-//$imagecode = getImageHash($mysql);
-//$filename = $imagecode . "." . $extension;
-
-//$fp = fopen("img/" . $filename, 'wb');
-
-//if ( !$fp ) {
-//    die ("Couldn't save the image.");
-//}
-
-//fwrite($fp, base64_decode($data));
-//fclose($fp);
-
-//// Update the database
-
 //$uploaderIP = getClientIPAddress();
 //$profile = "";
 
@@ -45,10 +28,14 @@
             inputArea.value = "";
         }
     }
+
+    function submitMessage() {
+
+
+    }
 </script>
 
 <form id="comment-input" style="width:350px; margin:30px;">
-    Name:
     <input type="text" name="name" class="input-field" size="30" maxlength="30" />
     <br />
     <br />
@@ -56,5 +43,6 @@
         <textarea id="comment-box" type="text" name="comment" class="input-field hint-text"
             rows="7" cols="40" maxlength="3000" onmousedown="clearHint()">Enter a comment here</textarea>
     </div>
+    <button type="button" onclick="asd()" style="float: right">submit</button>
 </form>
 
